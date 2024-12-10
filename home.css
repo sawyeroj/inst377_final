@@ -90,7 +90,7 @@ header {
     display: flex;
     flex-direction: column;
     width: 67%;
-
+    align-items: center;
     
 }
 
@@ -103,8 +103,8 @@ header {
     margin-left: 1.9%;
     border-radius: 9px;
     background-color: white;
-    box-shadow: 1px 1px 1px  rgba(0, 0, 0, 0.658)
-
+    box-shadow: 1px 1px 1px  rgba(0, 0, 0, 0.658);
+    width: 85%;
 }
 
 #main_content_2 {
@@ -161,6 +161,13 @@ a:active {
 a:hover {
     color: rgb(175, 174, 174);
     text-decoration: none;
+}
+
+#map{
+    height: 400px;
+    width: 90%;
+    border-radius: 13px;
+    align-items: center;
 }
 
 /*Footer*/
