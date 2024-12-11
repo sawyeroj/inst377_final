@@ -2,7 +2,7 @@
 
 // AccuWeather API base URL and key
 const accuweatherBaseUrl = "https://dataservice.accuweather.com";
-const accuweatherApiKey = "xb2AdhLGCIDl1BGwdGUieeXYk5n8oQka"; // Replace with your actual API key
+const accuweatherApiKey = "lO95XTZsj3Cu9szOFD2iwxJGS2IhW5QS"; 
 
 document.getElementById('yesterday-button').addEventListener('click', () => updateWeatherForDay(0));
 document.getElementById('today-button').addEventListener('click', () => updateWeatherForDay(1));
@@ -40,7 +40,7 @@ async function getLocationKey(cityName) {
 
         if (data.length > 0) {
             const locationKey = data[0].Key;
-            const cityName = data[0].LocalizedName; // Get the city name here
+            const cityName = data[0].LocalizedName; 
             console.log('Location Key:', locationKey);
             console.log('City Name:', cityName);
             return { locationKey, cityName };
@@ -62,7 +62,7 @@ async function getWeatherData(locationKey) {
         const response = await fetch(url);
         const data = await response.json();
         if (data.length > 0) {
-            return data[0]; // Return the first item from the response
+            return data[0]; 
         } else {
             throw new Error('Weather data not found.');
         }
@@ -77,7 +77,7 @@ let mapInstance;
 
 async function displayWeatherData(weatherData, cityName) {
     const mainContent = document.getElementById('main_box');
-    const mapDiv = document.getElementById('map'); // Get the map container
+    const mapDiv = document.getElementById('map'); 
     console.log('Weather data:', weatherData);
 
     const temperature = weatherData.Temperature.Metric.Value;
@@ -172,8 +172,8 @@ async function get4DayForecast(locationKey) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log('5-day forecast data:', data); // Log the API response
-        return data.DailyForecasts; // Return the array of daily forecasts
+        console.log('5-day forecast data:', data); 
+        return data.DailyForecasts; 
     } catch (error) {
         console.error('Error fetching 5-day forecast data:', error);
         alert('Error fetching forecast data. Please try again.');
@@ -192,7 +192,7 @@ async function updateWeatherForDay(dayIndex) {
 
 
                 console.log('Forecast Data:', forecastData);
-                console.log('Forecast Data:', forecastData[dayIndex]); // Log the data
+                console.log('Forecast Data:', forecastData[dayIndex]);
 
                 if (forecastData && forecastData[dayIndex]) {
                     const selectedDay = forecastData[dayIndex];
