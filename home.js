@@ -1,7 +1,7 @@
 // home.js
 
 // AccuWeather API base URL and key
-const accuweatherBaseUrl = "http://dataservice.accuweather.com";
+const accuweatherBaseUrl = "https://dataservice.accuweather.com";
 const accuweatherApiKey = "xb2AdhLGCIDl1BGwdGUieeXYk5n8oQka"; // Replace with your actual API key
 
 document.getElementById('yesterday-button').addEventListener('click', () => updateWeatherForDay(0));
