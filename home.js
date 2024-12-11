@@ -4,11 +4,11 @@
 const accuweatherBaseUrl = "https://dataservice.accuweather.com";
 const accuweatherApiKey = "lO95XTZsj3Cu9szOFD2iwxJGS2IhW5QS"; 
 
-document.getElementById('yesterday-button').addEventListener('click', () => updateWeatherForDay(0));
-document.getElementById('today-button').addEventListener('click', () => updateWeatherForDay(1));
-document.getElementById('one-days-button').addEventListener('click', () => updateWeatherForDay(2));
-document.getElementById('two-days-button').addEventListener('click', () => updateWeatherForDay(3));
-document.getElementById('three-days-button').addEventListener('click', () => updateWeatherForDay(4));
+document.getElementById('today-button').addEventListener('click', () => updateWeatherForDay(0));
+document.getElementById('tomorrow-button').addEventListener('click', () => updateWeatherForDay(1));
+document.getElementById('two-days-button').addEventListener('click', () => updateWeatherForDay(2));
+document.getElementById('three-days-button').addEventListener('click', () => updateWeatherForDay(3));
+document.getElementById('four-days-button').addEventListener('click', () => updateWeatherForDay(4));
 
 
 
