@@ -78,15 +78,10 @@ a:hover {
 
 #main_content,
 #main_content_2 {
-    margin: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    
     display: flex;
     flex-direction: column;
-    width: 48%;
     align-items: flex-start; 
-    text-align: left; 
-
     border: 2px solid rgb(43, 43, 43);
     padding: 15px;
     margin: 10px;
