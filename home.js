@@ -231,3 +231,36 @@ async function updateWeatherForDay(dayIndex) {
         console.error('Error updating weather data:', error);
     }
 }
+
+// Function to fetch a random Pokémon and display it in the given box
+async function fetchRandomPokemon(boxId) {
+    const pokemonId = Math.floor(Math.random() * 1025) + 1; 
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+
+    try {
+        // Fetch Pokémon details from the API
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+        if (!response.ok) throw new Error(`Failed to fetch Pokémon with ID ${pokemonId}`);
+        const pokemonData = await response.json();
+
+        // Update the specified box with Pokémon details
+        const box = document.getElementById(boxId);
+        box.innerHTML = `
+            <img src="${imageUrl}" alt="${pokemonData.name}" style="width: 100%; height: auto;">
+            <p style="text-align: center;">${pokemonData.name.toUpperCase()}</p>
+        `;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Function to fetch and display Pokémon in all boxes
+function displayRandomPokemons() {
+    fetchRandomPokemon('pokemon_box_1'); // Fetch for box 1
+    fetchRandomPokemon('pokemon_box_2'); // Fetch for box 2
+    fetchRandomPokemon('pokemon_box_3'); // Fetch for box 3
+    fetchRandomPokemon('pokemon_box_4'); // Fetch for box 4
+}
+
+// Load random Pokémon when the page loads
+window.onload = displayRandomPokemons;
