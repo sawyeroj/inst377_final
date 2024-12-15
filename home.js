@@ -2,7 +2,7 @@
 
 // AccuWeather API base URL and key
 const accuweatherBaseUrl = "https://dataservice.accuweather.com";
-const accuweatherApiKey = "lO95XTZsj3Cu9szOFD2iwxJGS2IhW5QS"; 
+const accuweatherApiKey = "lO95XTZsj3Cu9szOFD2iwxJGS2IhW5QS";
 
 document.getElementById('today-button').addEventListener('click', () => updateWeatherForDay(0));
 document.getElementById('tomorrow-button').addEventListener('click', () => updateWeatherForDay(1));
@@ -10,7 +10,27 @@ document.getElementById('two-days-button').addEventListener('click', () => updat
 document.getElementById('three-days-button').addEventListener('click', () => updateWeatherForDay(3));
 document.getElementById('four-days-button').addEventListener('click', () => updateWeatherForDay(4));
 
+const supabaseUrl = 'https://hmlxxrimuutrnbyiyvwu.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbHh4cmltdXV0cm5ieWl5dnd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNDA3ODEsImV4cCI6MjA0ODkxNjc4MX0.TFE2vQE7mFGElRMIjBKkEV9QlfaFBh6Qg8UCfrM4Z5s';
+const db = supabase.createClient(supabaseUrl, supabaseKey);
 
+async function display_saved() {
+    if (sessionStorage.getItem("username")) {
+        const username = sessionStorage.getItem("username");
+        const { data, error } = await db
+            .from("user_pw")
+            .select('saved')
+            .eq('username', username);
+
+        if (data) {
+            document.getElementById('saved').innerText = data[0].saved;
+        } else {
+            console.error(error);
+        }
+    }
+}
+
+display_saved();
 
 // Event listener for the search button
 document.getElementById('search-button').addEventListener('click', async () => {
@@ -33,12 +53,13 @@ document.getElementById('search-button').addEventListener('click', async () => {
 
         if (sessionStorage.getItem("username")) {
             const username = sessionStorage.getItem("username");
-            const {data, error} = await db
+            const { data, error } = await db
                 .from("user_pw")
                 .select('saved')
                 .eq('username', username);
             if (data) {
                 console.log(data);
+                document.getElementById("saved").innerText = data[0].saved;
             } else {
                 console.error(error + " ERROR");
             }
@@ -46,9 +67,9 @@ document.getElementById('search-button').addEventListener('click', async () => {
 
         if (sessionStorage.getItem("username")) {
             const username = sessionStorage.getItem("username");
-            const {data, error} = await db
+            const { data, error } = await db
                 .from("user_pw")
-                .update([{saved: city},])
+                .update([{ saved: city },])
                 .eq('username', username);
             if (data) {
                 console.log("Successfully updated new search query... " + city);
@@ -70,7 +91,7 @@ async function getLocationKey(cityName) {
 
         if (data.length > 0) {
             const locationKey = data[0].Key;
-            const cityName = data[0].LocalizedName; 
+            const cityName = data[0].LocalizedName;
             console.log('Location Key:', locationKey);
             console.log('City Name:', cityName);
             return { locationKey, cityName };
@@ -92,7 +113,7 @@ async function getWeatherData(locationKey) {
         const response = await fetch(url);
         const data = await response.json();
         if (data.length > 0) {
-            return data[0]; 
+            return data[0];
         } else {
             throw new Error('Weather data not found.');
         }
@@ -107,7 +128,7 @@ let mapInstance;
 
 async function displayWeatherData(weatherData, cityName) {
     const mainContent = document.getElementById('main_box');
-    const mapDiv = document.getElementById('map'); 
+    const mapDiv = document.getElementById('map');
     console.log('Weather data:', weatherData);
 
     const temperature = weatherData.Temperature.Metric.Value;
@@ -202,8 +223,8 @@ async function get4DayForecast(locationKey) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log('5-day forecast data:', data); 
-        return data.DailyForecasts; 
+        console.log('5-day forecast data:', data);
+        return data.DailyForecasts;
     } catch (error) {
         console.error('Error fetching 5-day forecast data:', error);
         alert('Error fetching forecast data. Please try again.');
@@ -239,7 +260,7 @@ async function updateWeatherForDay(dayIndex) {
                     const dayIconURL = `https://developer.accuweather.com/sites/default/files/${dayIconNumber}-s.png`;
                     const nightIconURL = `https://developer.accuweather.com/sites/default/files/${nightIconNumber}-s.png`;
 
-                
+
                     // Update weather display
                     document.getElementById('main_box').innerHTML = `
                         <h3>Weather for ${date}</h3>
@@ -264,7 +285,7 @@ async function updateWeatherForDay(dayIndex) {
 
 // Function to fetch a random Pokémon and display it in the given box
 async function fetchRandomPokemon(boxId) {
-    const pokemonId = Math.floor(Math.random() * 1025) + 1; 
+    const pokemonId = Math.floor(Math.random() * 1025) + 1;
     const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
 
     try {

@@ -240,9 +240,6 @@ header {
 
 }
 
-
-
-
 ul {
     list-style: none;
     text-align: left;
@@ -277,7 +274,7 @@ a:hover {
     text-decoration: none;
 }
 
-#map{
+#map {
     height: 400px;
     width: 90%;
     border-radius: 13px;
@@ -296,4 +293,9 @@ a:hover {
     padding-left: 10px;
     text-align: center;
     color: white;
+}
+
+#logout:hover {
+    color: rgb(175, 174, 174);
+    text-decoration: none;
 }
