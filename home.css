@@ -56,7 +56,6 @@ header {
 /*Navegation bar*/
 
 #main_nav {
-    
     text-align: center;
     background-color: rgb(88, 147, 255);
     color: white;
@@ -291,4 +290,10 @@ a:hover {
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
+}
+
+#stored_query {
+    padding-left: 10px;
+    text-align: center;
+    color: white;
 }

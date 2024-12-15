@@ -26,11 +26,12 @@
     </div>
 
     <div id="main_nav">
-        <ul>
+        <ul id="nav_list">
             <li><a href="../index.html">Home</a></li>
             <li><a href="../About/about.html">About</a></li>
             <li><a href="../Help/help.html">Contact Us</a></li>
             <li><a href="../thankyou/thankyou.html">Thank You</a></li>
+            <li id="login_id"><a href="../Login/login.html">Login/Sign Up</a></li>
         </ul>
     </div>
     <div class="content">
@@ -50,5 +51,25 @@
         <p>Stay connected with us for the latest updates and tips for seamless planning!</p>
             <p>© 2024 by Trip Planner</p>
     </footer>
+
+    <script>
+        if (sessionStorage.getItem("username")) {
+            document.getElementById("login_id").innerText = sessionStorage.getItem("username");
+            const list_item = document.createElement("li");
+            list_item.textContent = 'Logout';
+            list_item.id = 'logout';
+
+            const nav = document.getElementById("nav_list");
+            nav.appendChild(list_item);
+
+            const logout = document.getElementById("logout");
+
+            console.log(sessionStorage.getItem("username"));
+            logout.addEventListener('click', () => {
+                sessionStorage.clear();
+                location.reload();
+            });
+        }
+    </script>
 </body>
 </html>

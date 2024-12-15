@@ -1,15 +1,14 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
-    
     <title>TripPlanner Home</title>
     <link rel="stylesheet" href="home.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io (1)/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io (1)/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io (1)/favicon-16x16.png">
-    <link rel="manifest" href="/favicon_io (1)/site.webmanifest">
+    <!-- <link rel="manifest" href="/favicon_io (1)/site.webmanifest"> -->
 </head>
+
 <body>
 
     <!-- Logo Section-->
@@ -23,76 +22,96 @@
     <div class="search-bar">
         <input type="text" id="search-input" placeholder="Search City or Zip Code" />
         <button type="submit" id="search-button">Search</button>
+        <div id="stored_query">Last Search: <t id="saved"></t></div>
     </div>
 
     <!-- Header Section-->
     <div>
         <nav id="main_nav">
-            <ul>
+            <ul id="nav_list">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="About/about.html">About</a></li>
                 <li><a href="Help/help.html">Contact Us</a></li>
-                <li><a href="/thankyou/thankyou.html">Thank You</a></li>
+                <li><a href="thankyou/thankyou.html">Thank You</a></li>
+                <li id="login_id"><a href="Login/login.html">Login/Sign Up</a></li>
             </ul>
         </nav>
     </div>
 
-        <div>
-            <nav id="main_nav_time">
-            
-                <ul>
-                    <li><a href="#" id="today-button">Today</a></li>
-                    <li><a href="#" id="tomorrow-button">Tomorrow</a></li>
-                    <li><a href="#" id="two-days-button">In two Day</a></li> 
-                    <li><a href="#" id="three-days-button">In three Days</a></li> 
-                    <li><a href="#" id="four-days-button">In four Days</a></li> 
-                </ul>
-            
-            </nav>
-        </div>
+    <div>
+        <nav id="main_nav_time">
+
+            <ul>
+                <li><a href="#" id="today-button">Today</a></li>
+                <li><a href="#" id="tomorrow-button">Tomorrow</a></li>
+                <li><a href="#" id="two-days-button">In two Day</a></li>
+                <li><a href="#" id="three-days-button">In three Days</a></li>
+                <li><a href="#" id="four-days-button">In four Days</a></li>
+            </ul>
+
+        </nav>
+    </div>
 
 
-        <!-- Content Section-->
-        <div class="content">
+    <!-- Content Section-->
+    <div class="content">
 
-            <div id="main_content">
-                <div id="main_box">
-                    <h3>Welcome to our Weather app where you can check wheather conditions of most places!</h3>
-                    <p>Give it a try just go to our search bar and type any city or zip code!</p>
-                </div>
-
-                <div id="map" ></div>
+        <div id="main_content">
+            <div id="main_box">
+                <h3>Welcome to our Weather app where you can check wheather conditions of most places!</h3>
+                <p>Give it a try just go to our search bar and type any city or zip code!</p>
             </div>
 
-            <div id="main_content_2">
-                
-                <div class="title-pokemon">
-
-                    <p>Be careful with these Pokémons!</p>
-
-                </div>
-                <div class="main_box_2" id="pokemon_box_1">Loading...</div>
-                <div class="main_box_2" id="pokemon_box_2">Loading...</div>
-                <div class="main_box_2" id="pokemon_box_3">Loading...</div>
-                <div class="main_box_2" id="pokemon_box_4">Loading...</div>
-            </div>
+            <div id="map"></div>
         </div>
-            
 
-        <!-- Footer section-->
-        <footer class="footer">
-            <p>Stay connected with us for the latest updates and tips for seamless planning!</p>
-            <p>© 2024 by Trip Planner</p>
-        </footer>
+        <div id="main_content_2">
 
-        <script src="home.js"></script>
-        <!-- Leaflet CSS -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+            <div class="title-pokemon">
 
-        <!-- Leaflet JS -->
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                <p>Be careful with these Pokémons!</p>
 
+            </div>
+            <div class="main_box_2" id="pokemon_box_1">Loading...</div>
+            <div class="main_box_2" id="pokemon_box_2">Loading...</div>
+            <div class="main_box_2" id="pokemon_box_3">Loading...</div>
+            <div class="main_box_2" id="pokemon_box_4">Loading...</div>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+        if (sessionStorage.getItem("username")) {
+            document.getElementById("login_id").innerText = sessionStorage.getItem("username");
+            const list_item = document.createElement("li");
+            list_item.textContent = 'Logout';
+            list_item.id = 'logout';
 
-    </body>
+            const nav = document.getElementById("nav_list");
+            nav.appendChild(list_item);
+
+            const logout = document.getElementById("logout");
+
+            console.log(sessionStorage.getItem("username"));
+            logout.addEventListener('click', () => {
+                sessionStorage.clear();
+                location.reload();
+            });
+        }
+    </script>
+    <!-- Footer section-->
+    <footer class="footer">
+        <p>Stay connected with us for the latest updates and tips for seamless planning!</p>
+        <p>© 2024 by Trip Planner</p>
+    </footer>
+
+    <script src="home.js"></script>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</body>
+
 </html>

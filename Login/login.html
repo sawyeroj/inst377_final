@@ -1,0 +1,166 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="login.css">
+    <title>Login/SignUp</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html">
+            <p>Trip Planner</p>
+        </a>
+    </header>
+
+    <div class="header-about">
+        <p>Login or Sign up if you are new here!</p>
+    </div>
+
+    <div>
+        <nav id="main_nav">
+            <ul id="nav_list">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../About/about.html">About</a></li>
+                <li><a href="../Help/help.html">Contact Us</a></li>
+                <li><a href="../thankyou/thankyou.html">Thank You</a></li>
+                <li id="login_id"><a href="login.html">Login/Sign Up</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="content">
+        <div class="form-container">
+            <h2>Login</h2>
+            <h5>WARNING: There is no password recovery system.</h5>
+            <form id="login">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password" required>
+
+                <button type="submit" id="login_button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <h5>WARNING: There is no password recovery system.</h5>
+            <form id="signup">
+                <label for="username">Username:</label>
+                <input type="text" id="username2" name="username2" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email2" name="email2" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="text" id="password2" name="password2" required>
+
+                <button type="submit" id="signup_button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+        const supabaseUrl = 'https://hmlxxrimuutrnbyiyvwu.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtbHh4cmltdXV0cm5ieWl5dnd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNDA3ODEsImV4cCI6MjA0ODkxNjc4MX0.TFE2vQE7mFGElRMIjBKkEV9QlfaFBh6Qg8UCfrM4Z5s';
+        const db = supabase.createClient(supabaseUrl, supabaseKey);
+
+        let my_username;
+
+        const login_form = document.getElementById('login');
+        login_form.addEventListener("submit", async (e) => {
+            console.log('In login form.');
+            e.preventDefault();
+
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+            const email = document.getElementById("email").value;
+
+            console.log(user, pass, email);
+
+            try {
+                const { data, error } = await db.from('user_pw')
+                    .select('username', 'password')
+                    .eq('username', user)
+                    .eq('password', pass);
+                if (data) {
+                    console.log(data);
+
+                    if (data.length > 0) {
+                        sessionStorage.clear();
+                        my_username = data[0].username;
+                        console.log("my_username: ", my_username);
+
+                        console.log(`User '${user}' logged in successfully from db`);
+                        alert(`Account with user '${user}' successfully logged`);
+                        sessionStorage.setItem('username', my_username);
+
+                        const list_item = document.createElement("li");
+                        list_item.textContent = 'Logout';
+
+                        const nav = document.getElementById("nav_list");
+                        nav.appendChild(list_item);
+
+                        window.location.href = '../index.html';
+                    } else {
+                        alert('Username or Password Incorrect!');
+                    }
+                } else {
+                    console.log(error);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    </script>
+    <script>
+        supabaseUrl;
+        supabaseKey;
+        db;
+
+        const signup_form = document.getElementById('signup');
+        signup_form.addEventListener("submit", async (e) => {
+            console.log('In signup form.');
+            e.preventDefault();
+
+            const user = document.getElementById("username2").value;
+            const pass = document.getElementById("password2").value;
+            const email = document.getElementById("email2").value;
+
+            console.log(user, pass, email);
+
+            try {
+                const {data, error} = await db.from('user_pw')
+                    .select('username', 'password')
+                    .eq('username', user);
+                if (data) {
+                    console.log(data);
+
+                    if (data.length > 0) {
+                        console.log(`Username '${user}' exists already!`);
+                        alert(`Username '${user}' exists already!`);
+                    } else {
+                        const {data, error} = await db
+                            .from('user_pw')
+                            .insert([{username: user, password: pass, email: email},]).select();
+                        
+                        alert(`Account with username '${user}' successfully created!`);
+                    }
+                } else {
+                    console.log(error);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        })
+    </script>
+</body>
+
+</html>
