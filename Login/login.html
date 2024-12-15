@@ -36,9 +36,6 @@
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
                 <label for="password">Password:</label>
                 <input type="text" id="password" name="password" required>
 
@@ -81,9 +78,8 @@
 
             const user = document.getElementById("username").value;
             const pass = document.getElementById("password").value;
-            const email = document.getElementById("email").value;
 
-            console.log(user, pass, email);
+            console.log(user, pass);
 
             try {
                 const { data, error } = await db.from('user_pw')
@@ -99,7 +95,7 @@
                         console.log("my_username: ", my_username);
 
                         console.log(`User '${user}' logged in successfully from db`);
-                        alert(`Account with user '${user}' successfully logged`);
+                        alert(`Account with user '${user}' successfully logged in!`);
                         sessionStorage.setItem('username', my_username);
 
                         const list_item = document.createElement("li");
