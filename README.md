@@ -64,6 +64,13 @@ There are currently no automated tests built into the program. However, there ar
   - `GET /geocode`
     - Parameters: `q` (city name), `api_key`.
     - Usage: Fetches latitude and longitude for a city.
+##### Supabase
+- Base URL: `https://hmlxxrimuutrnbyiyvwu.supabase.co`
+- Endpoints
+  - GET username, password, saved from database
+  - PATCH username, password, email, saved to database
+     - May need to adjust CORS settings to enable PATCH if in sandbox.
+  - Note that the endpoints are constructed using methods supabase methods  
 
 ### 5. Roadmap for Future Development
 1. Automated Testing: Add automatic tests in JavaScript.
