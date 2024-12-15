@@ -8,7 +8,7 @@
 <body>
     <header>
         <a href="index.html">
-            <p>Trip Planner</p>
+            <p>TripPlanner</p>
         </a>
     </header>
 
@@ -133,7 +133,7 @@
             console.log(user, pass, email);
 
             try {
-                const {data, error} = await db.from('user_pw')
+                const { data, error } = await db.from('user_pw')
                     .select('username', 'password')
                     .eq('username', user);
                 if (data) {
@@ -143,10 +143,10 @@
                         console.log(`Username '${user}' exists already!`);
                         alert(`Username '${user}' exists already!`);
                     } else {
-                        const {data, error} = await db
+                        const { data, error } = await db
                             .from('user_pw')
-                            .insert([{username: user, password: pass, email: email},]).select();
-                        
+                            .insert([{ username: user, password: pass, email: email },]).select();
+
                         alert(`Account with username '${user}' successfully created!`);
                     }
                 } else {
@@ -157,6 +157,10 @@
             }
         })
     </script>
+    <footer class="footer">
+        <p>Stay connected with us for the latest updates and tips for seamless planning!</p>
+        <p>© 2024 by TripPlanner</p>
+    </footer>
 </body>
 
 </html>
